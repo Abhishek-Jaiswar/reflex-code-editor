@@ -1,11 +1,10 @@
 import { create } from "zustand";
-import { LANGUAGE_CONFIG } from "@/app/(root)/_constants";
 import { Monaco } from "@monaco-editor/react";
 import { CodeEditorState } from "@/types";
 
 const getInitialState = () => {
   // if we are on server just return default values
-  if (typeof window == "undefined") {
+  if (typeof window === "undefined") {
     return {
       language: "Javascript",
       fontSize: 16,

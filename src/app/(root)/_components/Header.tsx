@@ -24,7 +24,7 @@ const Header = async () => {
       <div className="relative">
         <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
-        <div className="py-6 px-4 sm:px-6 lg:px-8">
+        <div className="py-4 px-4 sm:px-6 lg:px-8">
           <div className="max-w-[98%] mx-auto">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4 group">
@@ -45,7 +45,7 @@ const Header = async () => {
               </div>
 
               <div className="hidden md:flex items-center gap-6">
-                <div>
+                <div className='flex items-center gap-9'>
                   <ThemeSelector />
                   <LanguageSelector hasAccess={Boolean(convexUser?.isPro)} />
                 </div>
