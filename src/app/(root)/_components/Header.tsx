@@ -20,7 +20,7 @@ const Header = async () => {
   // console.log({ convexUser });
 
   return (
-    <div className="min-h-screen ">
+    <div className=" mb-4">
       <div className="relative">
         <div className="absolute top-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
 
