@@ -1,6 +1,6 @@
 'use client'
 
-import { Loader, PlayIcon, SettingsIcon } from 'lucide-react'
+import { Loader, PlayIcon } from 'lucide-react'
 import React from 'react'
 import { useUser } from '@clerk/nextjs'
 import { useCodeEditorStore } from '@/store/useCodeEditorStore'
@@ -8,7 +8,7 @@ import { motion } from 'framer-motion'
 
 const RunButton = () => {
     const { user } = useUser();
-    const { runCode, language, isRunning, executionResult } = useCodeEditorStore();
+    const { runCode, isRunning, executionResult } = useCodeEditorStore();
 
     const handleRun = async () => {
         await runCode();

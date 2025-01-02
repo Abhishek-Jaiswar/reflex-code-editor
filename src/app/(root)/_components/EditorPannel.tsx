@@ -14,7 +14,7 @@ import useMounted from "@/hooks/useMounted";
 
 const EditorPannel = () => {
   const clerk = useClerk();
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [setIsShareModalOpen] = useState(false);
   const { language, theme, fontSize, editor, setFontSize, setEditor } = useCodeEditorStore();
 
   const mounted = useMounted();
