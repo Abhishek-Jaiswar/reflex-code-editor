@@ -17,7 +17,7 @@ const Header = async () => {
     userId: user?.id || "",
   });
 
-  // console.log({ convexUser });
+  console.log({ convexUser });
 
   return (
     <div className=" mb-4">

@@ -76,7 +76,7 @@ const OutputPannel = () => {
               )}
               {output ? (
                 <div className="space-y-2">
-                  <div className="flex items-center gap-3 text-green-400">
+                  <div className="flex items-center gap-2 text-green-400">
                     <CheckCircle className="size-6 flex-shrink-0 mt-1 text-green-500" />
                     <span>Execution Successful</span>
                   </div>

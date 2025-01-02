@@ -47,7 +47,7 @@ export function OutputPanelSkeleton() {
             {/* Output Area Skeleton */}
             <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-b from-[#1e1e2e] to-[#1a1a2e] rounded-xl -z-10" />
-                <div className="relative bg-[#1e1e2e]/50 backdrop-blur-sm border border-[#313244] rounded-xl p-4 h-[600px]">
+                <div className="relative bg-[#1e1e2e]/50 backdrop-blur-sm border border-[#313244] rounded-xl p-4 h-[500px]">
                     <div className="flex items-center justify-center h-full">
                         <div className="text-center">
                             <div className={`w-12 h-12 mx-auto mb-4 bg-white/5 rounded-xl`} />
