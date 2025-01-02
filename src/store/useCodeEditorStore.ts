@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import { editor } from "monaco-editor";
+import { editor as monacoEditor } from 'monaco-editor';
 import { CodeEditorState } from "@/types";
 import { LANGUAGE_CONFIG } from "@/app/(root)/_constants";
 
 const getInitialState = () => {
-  // if we on server just return default values
+  // if we're on the server just return default values
   if (typeof window === "undefined") {
     return {
-      language: "Javascript",
+      language: "javascript",
       fontSize: 16,
       theme: "vs-dark",
     };
@@ -35,7 +35,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 
     getCode: () => get().editor?.getValue() || "",
 
-    setEditor: (editor: editor.IStandaloneCodeEditor) => {
+    setEditor: (editor: monacoEditor.IStandaloneCodeEditor) => {
       const savedCode = localStorage.getItem(`editor-code-${get().language}`);
       if (savedCode) editor.setValue(savedCode);
 
@@ -82,12 +82,14 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
           body: JSON.stringify({
             language: runtime.language,
             version: runtime.version,
-            files: [{content: code}],
+            files: [
+              {
+                content: code,
+              },
+            ],
           }),
         });
         const data = await response.json();
-        console.log("Data back from piston", data);
-        
 
         if (data.message) {
           set({
@@ -97,13 +99,13 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
           return;
         }
 
-        if (data.compile && data.compile.code != 0) {
+        if (data.compile && data.compile.code !== 0) {
           const error = data.compile.stderr || data.compile.output;
           set({ error, executionResult: { code, output: "", error } });
           return;
         }
 
-        if (data.run && data.run.code != 0) {
+        if (data.run && data.run.code !== 0) {
           const error = data.run.stderr || data.run.output;
           set({ error, executionResult: { code, output: "", error } });
           return;
@@ -116,8 +118,11 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
           executionResult: { code, output, error: null },
         });
       } catch (error) {
-        console.log("Error running code", error);
-        set({ error: "Error running code", executionResult: { code, output: "", error: "Error running code" } });
+        console.error("Error running code", error);
+        set({
+          error: "Error running code",
+          executionResult: { code, output: "", error: "Error running code" },
+        });
       } finally {
         set({ isRunning: false });
       }

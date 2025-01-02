@@ -1,7 +1,7 @@
 'use client';
 
 import { useCodeEditorStore } from "@/store/useCodeEditorStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { defineMonacoThemes, LANGUAGE_CONFIG } from "../_constants";
 import Image from "next/image";
 import { RotateCcwIcon, ShareIcon, TypeIcon } from "lucide-react";
@@ -14,6 +14,7 @@ import useMounted from "@/hooks/useMounted";
 
 const EditorPannel = () => {
   const clerk = useClerk();
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const { language, theme, fontSize, editor, setFontSize, setEditor } = useCodeEditorStore();
 
   const mounted = useMounted();
@@ -40,7 +41,7 @@ const EditorPannel = () => {
   }
 
   const handleShare = () => {
-    //todo
+    setIsShareModalOpen(true);
   }
 
   const handleFontSizeChange = (e: number) => {
@@ -126,7 +127,7 @@ const EditorPannel = () => {
               onChange={handleEditorChange}
               theme={theme}
               beforeMount={defineMonacoThemes}
-            onMount={(editor) => setEditor(editor)}
+              onMount={(editor) => setEditor(editor)}
 
               options={{
                 minimap: { enabled: true },
@@ -139,6 +140,7 @@ const EditorPannel = () => {
                 fontLigatures: true,
                 cursorBlinking: "smooth",
                 smoothScrolling: true,
+                contextMenu: true,
                 renderLineHighlight: "all",
                 lineHeight: 1.6,
                 letterSpacing: 0.5,
