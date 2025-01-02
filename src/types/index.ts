@@ -1,5 +1,6 @@
-import { Monaco } from "@monaco-editor/react";
+import { editor as monacoEditor } from "monaco-editor";
 import { Id } from "../../convex/_generated/dataModel";
+import { Monaco } from "@monaco-editor/react";
 
 export interface Theme {
   id: string;
@@ -44,7 +45,7 @@ export interface CodeEditorState {
   error: string | null;
   theme: string;
   fontSize: number;
-  editor: Monaco | null;
+  editor: monacoEditor.IStandaloneCodeEditor | null;
   executionResult: ExecutionResult | null;
 
   setEditor: (editor: Monaco) => void;
