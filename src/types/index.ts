@@ -1,5 +1,4 @@
-import { Monaco } from "@monaco-editor/react";
-import { editor } from "monaco-editor";
+import type { editor as MonacoEditor } from "monaco-editor";
 import { Id } from "../../convex/_generated/dataModel";
 
 export interface Theme {
@@ -40,21 +39,25 @@ export interface ExecutionResult {
 
 export interface CodeEditorState {
   language: string;
+  fontSize: number;
+  theme: string;
   output: string;
   isRunning: boolean;
   error: string | null;
-  theme: string;
-  fontSize: number;
-  editor: Monaco | null;
-  executionResult: ExecutionResult | null;
-
-  setEditor: (editor: Monaco | editor.IStandaloneCodeEditor) => void;
+  editor: MonacoEditor.IStandaloneCodeEditor | null; // Allow null
+  executionResult: {
+    code: string;
+    output: string;
+    error: string | null;
+  } | null;
   getCode: () => string;
-  setLanguage: (language: string) => void;
+  setEditor: (editor: MonacoEditor.IStandaloneCodeEditor) => void;
   setTheme: (theme: string) => void;
   setFontSize: (fontSize: number) => void;
+  setLanguage: (language: string) => void;
   runCode: () => Promise<void>;
 }
+
 
 export interface Snippet {
   _id: Id<"snippets">;

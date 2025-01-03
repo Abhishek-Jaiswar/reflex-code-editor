@@ -1,27 +1,32 @@
 import { CodeEditorState } from "./../types/index";
 import { LANGUAGE_CONFIG } from "@/app/(root)/_constants";
 import { create } from "zustand";
-import { Monaco } from "@monaco-editor/react";
 
 const getInitialState = () => {
-  // if we're on the server, return default values
+  // Default values for SSR or when localStorage is unavailable
+  const defaultState = {
+    language: "javascript",
+    theme: "vs-dark",
+    fontSize: 16,
+  };
+
   if (typeof window === "undefined") {
-    return {
-      language: "javascript",
-      fontSize: 16,
-      theme: "vs-dark",
-    };
+    // Return default state during SSR
+    return defaultState;
   }
 
-  // if we're on the client, return values from local storage bc localStorage is a browser API.
+  // Client-side: Retrieve saved state from localStorage
   const savedLanguage = localStorage.getItem("editor-language") || "javascript";
   const savedTheme = localStorage.getItem("editor-theme") || "vs-dark";
-  const savedFontSize = localStorage.getItem("editor-font-size") || 16;
+  const savedFontSize = parseInt(
+    localStorage.getItem("editor-font-size") || "16",
+    10
+  );
 
   return {
     language: savedLanguage,
     theme: savedTheme,
-    fontSize: Number(savedFontSize),
+    fontSize: savedFontSize,
   };
 };
 
@@ -38,7 +43,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 
     getCode: () => get().editor?.getValue() || "",
 
-    setEditor: (editor: Monaco) => {
+    setEditor: (editor) => {
       const savedCode = localStorage.getItem(`editor-code-${get().language}`);
       if (savedCode) editor.setValue(savedCode);
 
@@ -100,7 +105,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
 
         console.log("data back from piston:", data);
 
-        // handle API-level erros
+        // Handle API-level errors
         if (data.message) {
           set({
             error: data.message,
@@ -109,7 +114,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
           return;
         }
 
-        // handle compilation errors
+        // Handle compilation errors
         if (data.compile && data.compile.code !== 0) {
           const error = data.compile.stderr || data.compile.output;
           set({
@@ -136,7 +141,7 @@ export const useCodeEditorStore = create<CodeEditorState>((set, get) => {
           return;
         }
 
-        // if we get here, execution was successful
+        // If execution was successful
         const output = data.run.output;
 
         set({

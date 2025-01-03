@@ -1,6 +1,7 @@
 'use client';
 
 import { useCodeEditorStore } from "@/store/useCodeEditorStore";
+import * as monaco from 'monaco-editor';
 import { useEffect } from "react";
 import { defineMonacoThemes, LANGUAGE_CONFIG } from "../_constants";
 import Image from "next/image";
@@ -15,7 +16,14 @@ import useMounted from "@/hooks/useMounted";
 const EditorPannel = () => {
   const clerk = useClerk();
   // const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const { language, theme, fontSize, editor, setFontSize, setEditor } = useCodeEditorStore();
+  const { language, theme, fontSize, editor, setFontSize, setEditor } = useCodeEditorStore() as {
+    language: string;
+    theme: string;
+    fontSize: number;
+    editor: monaco.editor.IStandaloneCodeEditor | null;
+    setFontSize: (size: number) => void;
+    setEditor: (editor: monaco.editor.IStandaloneCodeEditor) => void;
+  };
 
   const mounted = useMounted();
 
