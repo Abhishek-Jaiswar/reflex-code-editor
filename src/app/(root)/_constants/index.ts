@@ -1,5 +1,6 @@
 import { Monaco } from "@monaco-editor/react";
 import { Theme } from "@/types/index";
+import * as monaco from 'monaco-editor';
 
 type LanguageConfig = Record<
   string,
@@ -346,7 +347,7 @@ export const THEMES: Theme[] = [
 
 export const THEME_DEFINITONS = {
   "github-dark": {
-    base: "vs-dark",
+    base: "vs-dark" as monaco.editor.BuiltinTheme,
     inherit: true,
     rules: [
       { token: "comment", foreground: "6e7681" },
@@ -423,7 +424,7 @@ export const THEME_DEFINITONS = {
 export const defineMonacoThemes = (monaco: Monaco) => {
   Object.entries(THEME_DEFINITONS).forEach(([themeName, themeData]) => {
     monaco.editor.defineTheme(themeName, {
-      base: themeData.base,
+      base: themeData.base as monaco.editor.BuiltinTheme,
       inherit: themeData.inherit,
       rules: themeData.rules.map((rule) => ({
         ...rule,
