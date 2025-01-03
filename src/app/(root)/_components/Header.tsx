@@ -35,12 +35,15 @@ const Header = async () => {
                   <h1 className="text-2xl font-bold bg-gradient-to-r from-violet-400 via-blue-300 to-purple-400 text-transparent bg-clip-text tracking-tight">
                     Reflex
                   </h1>
-                  <p className="text-sm font-medium text-blue-400/50 transition-all duration-300 group-hover:text-blue-400/70">
+                  <p className="text-sm font-medium text-neutral-200/50 transition-all duration-300 group-hover:text-blue-400/70">
                     Interactive code editor
                   </p>
                 </div>
                 <div className=' text-center'>
-                  <NavButton icon={<MdSnippetFolder className="size-6" />} text="Snippets" />
+                  <button className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors duration-200 text-sm bg-gradient-to-r from-[#1e1e2e] to-[#15153e] border-[#09090d] hover:bg-[#1a1a29]">
+                    <MdSnippetFolder className='size-6' />
+                    <span className='text-sm font-medium '>Snippets</span>
+                  </button>
                 </div>
               </div>
 
@@ -75,11 +78,3 @@ const Header = async () => {
 
 export default Header
 
-function NavButton({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return (
-    <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-400 hover:text-white transition-colors duration-200 text-sm">
-      {icon}
-      <span>{text}</span>
-    </button>
-  );
-}
